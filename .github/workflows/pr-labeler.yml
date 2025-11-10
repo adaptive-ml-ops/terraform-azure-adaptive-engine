@@ -1,0 +1,42 @@
+name: Autolabelling of PR based on conventional commits
+
+on:
+  pull_request:
+    branches: [main]
+    types:
+      [opened, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  assign-labels:
+    runs-on: ubuntu-latest
+    name: Assign labels in pull request
+    if: github.event.pull_request.merged == false
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: mauroalderete/action-assign-labels@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          conventional-commits: |
+            conventional-commits:
+              - type: 'fix'
+                nouns: ['FIX', 'Fix', 'fix', 'FIXED', 'Fixed', 'fixed']
+                labels: ['bug']
+              - type: 'feature'
+                nouns: ['FEATURE', 'Feature', 'feature', 'FEAT', 'Feat', 'feat', 'perf']
+                labels: ['enhancement']
+              - type: 'documentation'
+                nouns: ['doc','docu','document','documentation']
+                labels: ['documentation']
+              - type: 'build'
+                nouns: ['build','ci']
+                labels: ['github_actions']
+              - type: 'chore'
+                nouns: ['lint','style', 'chore']
+                labels: ['chore']
+          maintain-labels-not-matched: true
+          apply-changes: true

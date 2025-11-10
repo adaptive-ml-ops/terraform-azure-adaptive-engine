@@ -1,0 +1,22 @@
+name: Terraform Lint & Validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  terraform-checks:
+    name: Terraform Format & Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.11.3
+
+      - name: Check Terraform formatting
+        run: terraform fmt -check -recursive
