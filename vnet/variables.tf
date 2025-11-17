@@ -27,5 +27,13 @@ variable "vnet_subnet" {
   description = "CIDR to use for the vnet format x.x.x.x/x "
   type        = string
 
-  # TODO Validation that its at least 14
+  validation {
+    condition     = can(cidrhost(var.vnet_subnet, 0))
+    error_message = "The vnet_subnet must be a valid CIDR block (e.g., 10.0.0.0/16)."
+  }
+
+  validation {
+    condition     = tonumber(split("/", var.vnet_subnet)[1]) <= 14
+    error_message = "The vnet_subnet must have a prefix length of /14 or larger (e.g., /14, /13, /12) to accommodate subnet carving."
+  }
 }

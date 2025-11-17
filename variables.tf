@@ -95,7 +95,10 @@ variable "db_primary_zone" {
   description = "Specifies the Availability Zone in which the PostgreSQL Flexible Server should be located."
   type        = string
 
-  # TODO
+  validation {
+    condition     = can(regex("^[1-3]$", var.db_primary_zone))
+    error_message = "The db_primary_zone must be a valid Azure availability zone: '1', '2', or '3'."
+  }
 }
 
 variable "db_secondary_zone" {
@@ -103,7 +106,15 @@ variable "db_secondary_zone" {
   description = "Specifies the secondary Availability Zone in which the PostgreSQL Flexible Server should be located."
   type        = string
 
-  # TODO validation
+  validation {
+    condition     = can(regex("^[1-3]$", var.db_secondary_zone))
+    error_message = "The db_secondary_zone must be a valid Azure availability zone: '1', '2', or '3'."
+  }
+
+  validation {
+    condition     = var.db_secondary_zone != var.db_primary_zone
+    error_message = "The db_secondary_zone must be different from db_primary_zone for high availability configuration."
+  }
 }
 
 variable "db_geo_redundant_backup_enabled" {

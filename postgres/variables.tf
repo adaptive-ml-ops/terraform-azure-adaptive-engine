@@ -51,14 +51,20 @@ variable "subnet" {
   description = "ID of the Subnet to use"
   type        = string
 
-  # TODO add validation
+  validation {
+    condition     = can(regex("^/subscriptions/[^/]+/resourceGroups/[^/]+/providers/Microsoft.Network/virtualNetworks/[^/]+/subnets/[^/]+$", var.subnet))
+    error_message = "The subnet must be a valid Azure subnet resource ID."
+  }
 }
 
 variable "private_dns_zone" {
   description = "ID of the zone to use"
   type        = string
 
-  # TODO add validation
+  validation {
+    condition     = can(regex("^/subscriptions/[^/]+/resourceGroups/[^/]+/providers/Microsoft.Network/privateDnsZones/.+\\.postgres\\.database\\.azure\\.com$", var.private_dns_zone))
+    error_message = "The private_dns_zone must be a valid Azure private DNS zone resource ID for PostgreSQL (*.postgres.database.azure.com)."
+  }
 }
 
 
