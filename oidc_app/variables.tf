@@ -6,5 +6,4 @@ variable "deployment_name" {
 variable "hostname" {
   description = "Hostname of the deployment in the format 'https://<url>'"
   type        = string
-  default     = "https://adaptive.test.com"
 }
