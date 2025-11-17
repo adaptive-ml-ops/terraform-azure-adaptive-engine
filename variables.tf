@@ -1,44 +1,29 @@
+# Generic Variables
+
 variable "deployment_name" {
   default     = "adaptive"
-  type        = string
   description = "Name of the deployment"
+  type        = string
 }
 
 variable "location" {
-  type        = string
   description = "Region of the deployment"
-}
-
-variable "postgres_version" {
-  description = "The version of PostgreSQL to use."
   type        = string
-  default     = "17"
-
-  validation {
-    condition     = tonumber(var.postgres_version) > 16
-    error_message = "The postgres_version must be greater than 16."
-  }
 }
 
 variable "hostname" {
+  # default     = "https://adaptive.test.com"
   description = "Hostname of the deployment in the format 'https://<url>'"
   type        = string
-  # default     = "https://adaptive.test.com"
 }
-
-variable "db_sku_name" {
-  description = "The vm class for the Postgres DB."
-  type        = string
-  default     = "GP_Standard_D4ads_v5"
-}
-
-
 
 variable "tags" {
+  default     = {}
   description = "Tags to apply to created resources"
   type        = map(string)
-  default     = {}
 }
+
+# Network variables
 
 variable "cidr_vnet" {
   description = "CIDR to use for the VNET"
@@ -55,10 +40,12 @@ variable "cidr_vnet" {
   }
 }
 
+# AKS variables
+
 variable "cpu_node_pool_vm_size" {
+  default     = "Standard_D16as_v6"
   description = "VM size to use for CPU node pool"
   type        = string
-  default     = "Standard_D16as_v6"
 }
 
 variable "gpu_node_pool_vm_size" {
@@ -69,4 +56,24 @@ variable "gpu_node_pool_vm_size" {
 variable "gpu_node_count" {
   description = "Number of GPU nodes inside the node pool"
   type        = number
+}
+
+
+# Postgres variables
+
+variable "postgres_version" {
+  default     = "17"
+  description = "The version of PostgreSQL to use."
+  type        = string
+
+  validation {
+    condition     = tonumber(var.postgres_version) > 16
+    error_message = "The postgres_version must be greater than 16."
+  }
+}
+
+variable "db_sku_name" {
+  default     = "GP_Standard_D4ads_v5"
+  description = "The vm class for the Postgres DB."
+  type        = string
 }
