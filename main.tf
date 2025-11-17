@@ -30,6 +30,9 @@ module "aks" {
   gpu_node_pool_vm_size = var.gpu_node_pool_vm_size
   gpu_node_count        = var.gpu_node_count
 
+  aks_azure_logs    = var.aks_azure_logs
+  aks_azure_metrics = var.aks_azure_metrics
+
   depends_on = [module.vnet]
 }
 

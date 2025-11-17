@@ -52,3 +52,13 @@ variable "network_policy" {
     error_message = "Network policy must be either 'azure' or 'calico'."
   }
 }
+
+variable "aks_azure_logs" {
+  description = "Enable logging of AKS pods to Azure Log Analytics workspace"
+  type        = bool
+}
+
+variable "aks_azure_metrics" {
+  description = "Enable metrics export of AKS pods to Azure Monitoring workspace"
+  type        = bool
+}

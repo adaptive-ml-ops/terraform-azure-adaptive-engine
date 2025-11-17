@@ -58,6 +58,18 @@ variable "gpu_node_count" {
   type        = number
 }
 
+variable "aks_azure_logs" {
+  default     = false
+  description = "Enable logging of AKS pods to Azure Log Analytics workspace"
+  type        = bool
+}
+
+variable "aks_azure_metrics" {
+  default     = false
+  description = "Enable metrics export of AKS pods to Azure Monitoring workspace"
+  type        = bool
+}
+
 
 # Postgres variables
 
