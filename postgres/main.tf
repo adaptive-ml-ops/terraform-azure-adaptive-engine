@@ -13,11 +13,11 @@ resource "azurerm_postgresql_flexible_server" "this" {
   public_network_access_enabled = false
   administrator_login           = "psqladmin"
   administrator_password        = random_password.postgres_admin.result
-  zone                          = "1"
+  zone                          = var.primary_zone
 
-  storage_mb   = 32768
-  storage_tier = var.storage_tier
-
+  storage_mb        = 32768
+  storage_tier      = var.storage_tier
+  auto_grow_enabled = true
 
   sku_name = var.sku_name
 
@@ -25,10 +25,9 @@ resource "azurerm_postgresql_flexible_server" "this" {
   geo_redundant_backup_enabled = var.geo_redundant_backup_enabled
 
   high_availability {
-    mode = "ZoneRedundant"
+    mode                      = var.high_availability_mode
+    standby_availability_zone = var.secondary_zone
   }
-
-  auto_grow_enabled = true
 
   maintenance_window {
     day_of_week  = var.maintenance_window["day_of_week"]

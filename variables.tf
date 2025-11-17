@@ -84,6 +84,28 @@ variable "db_storage_tier" {
   type        = string
 }
 
+variable "db_high_availability_mode" {
+  default     = "ZoneRedundant"
+  description = "The high availability mode for the PostgreSQL Flexible Server. Possible value are SameZone or ZoneRedundant."
+  type        = string
+}
+
+variable "db_primary_zone" {
+  default     = "1"
+  description = "Specifies the Availability Zone in which the PostgreSQL Flexible Server should be located."
+  type        = string
+
+  # TODO
+}
+
+variable "db_secondary_zone" {
+  default     = "2"
+  description = "Specifies the secondary Availability Zone in which the PostgreSQL Flexible Server should be located."
+  type        = string
+
+  # TODO validation
+}
+
 variable "db_geo_redundant_backup_enabled" {
   default     = true
   description = "Is Geo-Redundant backup enabled on the PostgreSQL Flexible Server."

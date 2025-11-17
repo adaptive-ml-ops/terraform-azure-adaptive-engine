@@ -48,6 +48,10 @@ module "postgres" {
   storage_tier       = var.db_storage_tier
 
   geo_redundant_backup_enabled = var.db_geo_redundant_backup_enabled
+  high_availability_mode       = var.db_high_availability_mode
+
+  primary_zone   = var.db_primary_zone
+  secondary_zone = var.db_secondary_zone
 
   location = var.location
   tags     = var.tags

@@ -47,12 +47,6 @@ variable "storage_tier" {
   type        = string
 }
 
-variable "geo_redundant_backup_enabled" {
-  default     = true
-  description = "Is Geo-Redundant backup enabled on the PostgreSQL Flexible Server."
-  type        = bool
-}
-
 variable "subnet" {
   description = "ID of the Subnet to use"
   type        = string
@@ -67,16 +61,15 @@ variable "private_dns_zone" {
   # TODO add validation
 }
 
-# Resilience Variables
-variable "backup_retention_days" {
-  description = "Backup retention days (7-35)"
-  type        = number
-  default     = 7
 
-  validation {
-    condition     = var.backup_retention_days >= 7 && var.backup_retention_days <= 35
-    error_message = "Backup retention days must be between 7 and 35."
-  }
+variable "high_availability_mode" {
+  description = "The high availability mode for the PostgreSQL Flexible Server. Possible value are SameZone or ZoneRedundant."
+  type        = string
+}
+
+variable "geo_redundant_backup_enabled" {
+  description = "Is Geo-Redundant backup enabled on the PostgreSQL Flexible Server."
+  type        = bool
 }
 
 variable "maintenance_window" {
@@ -92,4 +85,25 @@ variable "maintenance_window" {
     start_hour   = 2
     start_minute = 0
   }
+}
+
+variable "backup_retention_days" {
+  description = "Backup retention days (7-35)"
+  type        = number
+  default     = 7
+
+  validation {
+    condition     = var.backup_retention_days >= 7 && var.backup_retention_days <= 35
+    error_message = "Backup retention days must be between 7 and 35."
+  }
+}
+
+variable "primary_zone" {
+  description = "Specifies the Availability Zone in which the PostgreSQL Flexible Server should be located."
+  type        = string
+}
+
+variable "secondary_zone" {
+  description = "Specifies the secondary Availability Zone in which the PostgreSQL Flexible Server should be located."
+  type        = string
 }
