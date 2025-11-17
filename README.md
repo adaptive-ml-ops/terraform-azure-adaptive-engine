@@ -143,14 +143,13 @@ graph TB
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 4.52.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 4.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_aks"></a> [aks](#module\_aks) | ./aks | n/a |
-| <a name="module_dns"></a> [dns](#module\_dns) | ./dns_zone | n/a |
 | <a name="module_oidc"></a> [oidc](#module\_oidc) | ./oidc_app | n/a |
 | <a name="module_postgres"></a> [postgres](#module\_postgres) | ./postgres | n/a |
 | <a name="module_vnet"></a> [vnet](#module\_vnet) | ./vnet | n/a |
@@ -167,7 +166,13 @@ graph TB
 |------|-------------|------|---------|:--------:|
 | <a name="input_cidr_vnet"></a> [cidr\_vnet](#input\_cidr\_vnet) | CIDR to use for the VNET | `string` | n/a | yes |
 | <a name="input_cpu_node_pool_vm_size"></a> [cpu\_node\_pool\_vm\_size](#input\_cpu\_node\_pool\_vm\_size) | VM size to use for CPU node pool | `string` | `"Standard_D16as_v6"` | no |
+| <a name="input_db_geo_redundant_backup_enabled"></a> [db\_geo\_redundant\_backup\_enabled](#input\_db\_geo\_redundant\_backup\_enabled) | Is Geo-Redundant backup enabled on the PostgreSQL Flexible Server. | `bool` | `true` | no |
+| <a name="input_db_high_availability_mode"></a> [db\_high\_availability\_mode](#input\_db\_high\_availability\_mode) | The high availability mode for the PostgreSQL Flexible Server. Possible value are SameZone or ZoneRedundant or None to disable. | `string` | `"ZoneRedundant"` | no |
+| <a name="input_db_maintenance_window"></a> [db\_maintenance\_window](#input\_db\_maintenance\_window) | The maintenance window for the database. | <pre>object({<br/>    day_of_week  = number<br/>    start_hour   = number<br/>    start_minute = number<br/>  })</pre> | <pre>{<br/>  "day_of_week": 0,<br/>  "start_hour": 2,<br/>  "start_minute": 0<br/>}</pre> | no |
+| <a name="input_db_primary_zone"></a> [db\_primary\_zone](#input\_db\_primary\_zone) | Specifies the Availability Zone in which the PostgreSQL Flexible Server should be located. | `string` | `"1"` | no |
+| <a name="input_db_secondary_zone"></a> [db\_secondary\_zone](#input\_db\_secondary\_zone) | Specifies the secondary Availability Zone in which the PostgreSQL Flexible Server should be located. | `string` | `"2"` | no |
 | <a name="input_db_sku_name"></a> [db\_sku\_name](#input\_db\_sku\_name) | The vm class for the Postgres DB. | `string` | `"GP_Standard_D4ads_v5"` | no |
+| <a name="input_db_storage_tier"></a> [db\_storage\_tier](#input\_db\_storage\_tier) | The name of storage performance tier for IOPS of the PostgreSQL Flexible Server. | `string` | `"P4"` | no |
 | <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | Name of the deployment | `string` | `"adaptive"` | no |
 | <a name="input_gpu_node_count"></a> [gpu\_node\_count](#input\_gpu\_node\_count) | Number of GPU nodes inside the node pool | `number` | n/a | yes |
 | <a name="input_gpu_node_pool_vm_size"></a> [gpu\_node\_pool\_vm\_size](#input\_gpu\_node\_pool\_vm\_size) | VM size to use for GPU node pool | `string` | n/a | yes |
@@ -180,10 +185,8 @@ graph TB
 
 | Name | Description |
 |------|-------------|
-| <a name="output_aks_kube_config"></a> [aks\_kube\_config](#output\_aks\_kube\_config) | Kubernetes config for the AKS cluster |
-| <a name="output_helm_values"></a> [helm\_values](#output\_helm\_values) | TODO |
+| <a name="output_aks_cluster_name"></a> [aks\_cluster\_name](#output\_aks\_cluster\_name) | n/a |
 | <a name="output_oidc_auth_config"></a> [oidc\_auth\_config](#output\_oidc\_auth\_config) | OIDC authentication configuration for Azure AD |
 | <a name="output_postgres_connection_string"></a> [postgres\_connection\_string](#output\_postgres\_connection\_string) | PostgreSQL connection string for the adaptive database |
-| <a name="output_postgres_database_name"></a> [postgres\_database\_name](#output\_postgres\_database\_name) | The name of the PostgreSQL database |
-| <a name="output_postgres_server_fqdn"></a> [postgres\_server\_fqdn](#output\_postgres\_server\_fqdn) | The fully qualified domain name of the PostgreSQL server |
+| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | n/a |
 <!-- END_TF_DOCS -->
