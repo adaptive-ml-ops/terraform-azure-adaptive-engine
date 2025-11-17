@@ -86,7 +86,7 @@ variable "db_storage_tier" {
 
 variable "db_high_availability_mode" {
   default     = "ZoneRedundant"
-  description = "The high availability mode for the PostgreSQL Flexible Server. Possible value are SameZone or ZoneRedundant."
+  description = "The high availability mode for the PostgreSQL Flexible Server. Possible value are SameZone or ZoneRedundant or None to disable."
   type        = string
 }
 
