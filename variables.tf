@@ -77,3 +77,18 @@ variable "db_sku_name" {
   description = "The vm class for the Postgres DB."
   type        = string
 }
+
+variable "db_maintenance_window" {
+  description = "The maintenance window for the database."
+  type = object({
+    day_of_week  = number
+    start_hour   = number
+    start_minute = number
+  })
+
+  default = { #Sunday 2-3 AM
+    day_of_week  = 0
+    start_hour   = 2
+    start_minute = 0
+  }
+}

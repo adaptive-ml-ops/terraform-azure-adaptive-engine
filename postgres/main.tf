@@ -24,11 +24,10 @@ resource "azurerm_postgresql_flexible_server" "example" {
 
   auto_grow_enabled = true
 
-  # Maintenance window (Sunday 2-3 AM)
   maintenance_window {
-    day_of_week  = 0
-    start_hour   = 2
-    start_minute = 0
+    day_of_week  = var.maintenance_window["day_of_week"]
+    start_hour   = var.maintenance_window["start_hour"]
+    start_minute = var.maintenance_window["start_minute"]
   }
 
   tags = var.tags

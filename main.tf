@@ -42,8 +42,9 @@ module "postgres" {
   subnet           = module.vnet.postgres_subnet
   private_dns_zone = module.vnet.postgres_dns_zone
 
-  sku_name         = var.db_sku_name
-  postgres_version = var.postgres_version
+  sku_name           = var.db_sku_name
+  postgres_version   = var.postgres_version
+  maintenance_window = var.db_maintenance_window
 
   location = var.location
   tags     = var.tags
