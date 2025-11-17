@@ -17,7 +17,7 @@ resource "azurerm_kubernetes_cluster" "this" {
     temporary_name_for_rotation = "default2"
 
     upgrade_settings {
-      drain_timeout_in_minutes      = 0
+      drain_timeout_in_minutes      = 20
       max_surge                     = "10%"
       node_soak_duration_in_minutes = 0
     }
@@ -59,7 +59,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "gpu_compute" {
   node_taints = ["nvidia.com/gpu=value:NoSchedule"]
 
   upgrade_settings {
-    drain_timeout_in_minutes      = 0
+    drain_timeout_in_minutes      = 20
     max_surge                     = "10%"
     node_soak_duration_in_minutes = 0
   }
