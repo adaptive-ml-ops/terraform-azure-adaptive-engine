@@ -3,7 +3,7 @@ resource "random_password" "postgres_admin" {
   special = false
 }
 
-resource "azurerm_postgresql_flexible_server" "example" {
+resource "azurerm_postgresql_flexible_server" "this" {
   name                          = "${var.deployment_name}-psql"
   resource_group_name           = var.resource_group_name
   location                      = var.location
@@ -35,7 +35,7 @@ resource "azurerm_postgresql_flexible_server" "example" {
 
 resource "azurerm_postgresql_flexible_server_database" "this" {
   name      = var.database_name
-  server_id = azurerm_postgresql_flexible_server.example.id
+  server_id = azurerm_postgresql_flexible_server.this.id
   collation = "en_US.utf8"
   charset   = "utf8"
 }
