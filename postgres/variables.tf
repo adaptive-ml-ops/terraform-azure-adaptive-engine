@@ -41,6 +41,18 @@ variable "sku_name" {
   type        = string
 }
 
+variable "storage_tier" {
+  default     = "P4"
+  description = "The name of storage performance tier for IOPS of the PostgreSQL Flexible Server."
+  type        = string
+}
+
+variable "geo_redundant_backup_enabled" {
+  default     = true
+  description = "Is Geo-Redundant backup enabled on the PostgreSQL Flexible Server."
+  type        = bool
+}
+
 variable "subnet" {
   description = "ID of the Subnet to use"
   type        = string

@@ -78,6 +78,18 @@ variable "db_sku_name" {
   type        = string
 }
 
+variable "db_storage_tier" {
+  default     = "P4"
+  description = "The name of storage performance tier for IOPS of the PostgreSQL Flexible Server."
+  type        = string
+}
+
+variable "db_geo_redundant_backup_enabled" {
+  default     = true
+  description = "Is Geo-Redundant backup enabled on the PostgreSQL Flexible Server."
+  type        = bool
+}
+
 variable "db_maintenance_window" {
   description = "The maintenance window for the database."
   type = object({

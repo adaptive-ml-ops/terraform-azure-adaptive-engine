@@ -45,6 +45,9 @@ module "postgres" {
   sku_name           = var.db_sku_name
   postgres_version   = var.postgres_version
   maintenance_window = var.db_maintenance_window
+  storage_tier       = var.db_storage_tier
+
+  geo_redundant_backup_enabled = var.db_geo_redundant_backup_enabled
 
   location = var.location
   tags     = var.tags

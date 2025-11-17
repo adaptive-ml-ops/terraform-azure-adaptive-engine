@@ -1,11 +1,11 @@
 output "server_fqdn" {
   description = "The fully qualified domain name of the PostgreSQL server"
-  value       = azurerm_postgresql_flexible_server.example.fqdn
+  value       = azurerm_postgresql_flexible_server.this.fqdn
 }
 
 output "server_id" {
   description = "The ID of the PostgreSQL server"
-  value       = azurerm_postgresql_flexible_server.example.id
+  value       = azurerm_postgresql_flexible_server.this.id
 }
 
 output "database_name" {
@@ -15,18 +15,18 @@ output "database_name" {
 
 output "administrator_login" {
   description = "The administrator login name"
-  value       = azurerm_postgresql_flexible_server.example.administrator_login
+  value       = azurerm_postgresql_flexible_server.this.administrator_login
   sensitive   = true
 }
 
 output "administrator_password" {
   description = "The administrator password"
-  value       = azurerm_postgresql_flexible_server.example.administrator_password
+  value       = azurerm_postgresql_flexible_server.this.administrator_password
   sensitive   = true
 }
 
 output "connection_string" {
   description = "PostgreSQL connection string"
-  value       = "postgresql://${azurerm_postgresql_flexible_server.example.administrator_login}:${azurerm_postgresql_flexible_server.example.administrator_password}@${azurerm_postgresql_flexible_server.example.fqdn}:5432/${azurerm_postgresql_flexible_server_database.this.name}?sslmode=require"
+  value       = "postgresql://${azurerm_postgresql_flexible_server.this.administrator_login}:${azurerm_postgresql_flexible_server.this.administrator_password}@${azurerm_postgresql_flexible_server.this.fqdn}:5432/${azurerm_postgresql_flexible_server_database.this.name}?sslmode=require"
   sensitive   = true
 }

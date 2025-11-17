@@ -16,11 +16,17 @@ resource "azurerm_postgresql_flexible_server" "this" {
   zone                          = "1"
 
   storage_mb   = 32768
-  storage_tier = "P4"
+  storage_tier = var.storage_tier
+
 
   sku_name = var.sku_name
 
-  backup_retention_days = var.backup_retention_days
+  backup_retention_days        = var.backup_retention_days
+  geo_redundant_backup_enabled = var.geo_redundant_backup_enabled
+
+  high_availability {
+    mode = "ZoneRedundant"
+  }
 
   auto_grow_enabled = true
 
