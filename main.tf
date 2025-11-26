@@ -63,6 +63,27 @@ module "postgres" {
   depends_on = [module.vnet]
 }
 
+module "redis" {
+  source = "./redis"
+
+  resource_group_name = azurerm_resource_group.this.name
+  deployment_name     = var.deployment_name
+
+  subnet  = module.vnet.redis_subnet
+  vnet_id = module.vnet.vnet_id
+
+  sku_name                  = var.redis_sku_name
+  high_availability_enabled = var.redis_high_availability_enabled
+  public_network_access     = var.redis_public_network_access
+  clustering_policy         = var.redis_clustering_policy
+  eviction_policy           = var.redis_eviction_policy
+
+  location = var.location
+  tags     = var.tags
+
+  depends_on = [module.vnet]
+}
+
 module "oidc" {
   source = "./oidc_app"
 

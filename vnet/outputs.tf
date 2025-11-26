@@ -13,3 +13,7 @@ output "postgres_subnet" {
 output "postgres_dns_zone" {
   value = azurerm_private_dns_zone.postgres.id
 }
+
+output "redis_subnet" {
+  value = azurerm_subnet.redis.id
+}

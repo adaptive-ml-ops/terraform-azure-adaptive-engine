@@ -81,7 +81,6 @@ variable "aks_log_retention_days" {
   }
 }
 
-
 # Postgres variables
 
 variable "postgres_version" {
@@ -158,5 +157,50 @@ variable "db_maintenance_window" {
     day_of_week  = 0
     start_hour   = 2
     start_minute = 0
+  }
+}
+
+# Redis variables
+
+variable "redis_sku_name" {
+  default     = "Balanced_B3"
+  description = "The SKU for the Managed Redis instance. Examples: Balanced_B3, MemoryOptimized_M10, ComputeOptimized_X3, FlashOptimized_A250."
+  type        = string
+
+  validation {
+    condition     = can(regex("^(Balanced_B|MemoryOptimized_M|ComputeOptimized_X|FlashOptimized_A)", var.redis_sku_name))
+    error_message = "The redis_sku_name must be a valid Managed Redis SKU (Balanced_B*, MemoryOptimized_M*, ComputeOptimized_X*, or FlashOptimized_A*)."
+  }
+}
+
+variable "redis_high_availability_enabled" {
+  default     = true
+  description = "Whether to enable high availability for the Managed Redis instance."
+  type        = bool
+}
+
+variable "redis_clustering_policy" {
+  default     = "OSSCluster"
+  description = "Clustering policy. Possible values are EnterpriseCluster, OSSCluster and NoCluster."
+  type        = string
+
+  validation {
+    condition     = contains(["EnterpriseCluster", "OSSCluster", "NoCluster"], var.redis_clustering_policy)
+    error_message = "The redis_clustering_policy must be one of: EnterpriseCluster, OSSCluster, NoCluster."
+  }
+}
+
+variable "redis_eviction_policy" {
+  default     = "VolatileLRU"
+  description = "Specifies the Redis eviction policy. Possible values are AllKeysLFU, AllKeysLRU, AllKeysRandom, VolatileLRU, VolatileLFU, VolatileTTL, VolatileRandom and NoEviction."
+  type        = string
+
+  validation {
+    condition = contains([
+      "AllKeysLFU", "AllKeysLRU", "AllKeysRandom",
+      "VolatileLRU", "VolatileLFU", "VolatileTTL", "VolatileRandom",
+      "NoEviction"
+    ], var.redis_eviction_policy)
+    error_message = "The redis_eviction_policy must be a valid Redis eviction policy."
   }
 }
