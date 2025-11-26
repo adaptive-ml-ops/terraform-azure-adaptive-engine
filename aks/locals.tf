@@ -1,3 +1,3 @@
 locals {
-log_analytics_workspace = "ciworkspace"
+  log_analytics_workspace = "ciworkspace"
 }
