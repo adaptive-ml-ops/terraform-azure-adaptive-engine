@@ -59,6 +59,6 @@ resource "azurerm_monitor_data_collection_rule_association" "metrics_dcra" {
   data_collection_rule_id = azurerm_monitor_data_collection_rule.metrics_dcr[0].id
   description             = "Association of data collection rule. Deleting this association will break the data collection for this AKS Cluster."
   depends_on = [
-    azurerm_monitor_data_collection_rule.metrics_dcr
+    azurerm_monitor_data_collection_rule.metrics_dcr[0]
   ]
 }
