@@ -9,7 +9,7 @@ resource "azurerm_monitor_workspace" "amw" {
 
 resource "azurerm_monitor_data_collection_endpoint" "dce" {
   count               = var.aks_azure_metrics ? 1 : 0
-  name                = "${var.deployment_name}-mse"
+  name                = "${var.deployment_name}-dce"
   location            = var.location
   resource_group_name = var.resource_group_name
   kind                = "Linux"
