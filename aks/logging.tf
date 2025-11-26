@@ -5,7 +5,7 @@ resource "azurerm_log_analytics_workspace" "this" {
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = "PerGB2018"
-  retention_in_days   = 30
+  retention_in_days   = var.log_retention_days
 }
 
 resource "azurerm_monitor_data_collection_rule" "logs_dcr" {
@@ -18,7 +18,7 @@ resource "azurerm_monitor_data_collection_rule" "logs_dcr" {
   destinations {
     log_analytics {
       workspace_resource_id = azurerm_log_analytics_workspace.this[0].id
-      name                  = "ciworkspace"
+      name                  = local.log_analytics_workspace
     }
   }
 
@@ -36,12 +36,12 @@ resource "azurerm_monitor_data_collection_rule" "logs_dcr" {
       "Microsoft-ContainerNodeInventory",
       "Microsoft-Perf"
     ]
-    destinations = ["ciworkspace"]
+    destinations = [local.log_analytics_workspace]
   }
 
   data_flow {
     streams      = ["Microsoft-Syslog"]
-    destinations = ["ciworkspace"]
+    destinations = [local.log_analytics_workspace]
   }
 
   data_sources {

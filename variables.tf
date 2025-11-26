@@ -70,6 +70,17 @@ variable "aks_azure_metrics" {
   type        = bool
 }
 
+variable "aks_log_retention_days" {
+  default     = 30
+  description = "Number of days to retain logs in the Log Analytics workspace (30-730)"
+  type        = number
+
+  validation {
+    condition     = var.aks_log_retention_days >= 30 && var.aks_log_retention_days <= 730
+    error_message = "Log retention days must be between 30 and 730."
+  }
+}
+
 
 # Postgres variables
 
