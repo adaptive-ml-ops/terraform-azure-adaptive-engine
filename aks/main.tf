@@ -23,6 +23,20 @@ resource "azurerm_kubernetes_cluster" "this" {
     }
   }
 
+  dynamic "monitor_metrics" {
+    for_each = var.aks_azure_metrics ? [1] : []
+    content {}
+  }
+
+  dynamic "oms_agent" {
+    for_each = var.aks_azure_logs ? [1] : []
+
+    content {
+      log_analytics_workspace_id      = azurerm_log_analytics_workspace.this[0].id
+      msi_auth_for_monitoring_enabled = true
+    }
+  }
+
   identity {
     type = "SystemAssigned"
   }

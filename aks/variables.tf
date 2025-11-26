@@ -52,3 +52,24 @@ variable "network_policy" {
     error_message = "Network policy must be either 'azure' or 'calico'."
   }
 }
+
+variable "aks_azure_logs" {
+  description = "Enable logging of AKS pods to Azure Log Analytics workspace"
+  type        = bool
+}
+
+variable "aks_azure_metrics" {
+  description = "Enable metrics export of AKS pods to Azure Monitoring workspace"
+  type        = bool
+}
+
+variable "log_retention_days" {
+  description = "Number of days to retain logs in the Log Analytics workspace (30-730)"
+  type        = number
+  default     = 30
+
+  validation {
+    condition     = var.log_retention_days >= 30 && var.log_retention_days <= 730
+    error_message = "Log retention days must be between 30 and 730."
+  }
+}
