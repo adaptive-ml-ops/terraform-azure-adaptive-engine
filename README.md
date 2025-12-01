@@ -136,14 +136,14 @@ graph TB
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.10.0 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.54 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | ~> 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 4.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 4.54 |
 
 ## Modules
 
@@ -152,6 +152,7 @@ graph TB
 | <a name="module_aks"></a> [aks](#module\_aks) | ./aks | n/a |
 | <a name="module_oidc"></a> [oidc](#module\_oidc) | ./oidc_app | n/a |
 | <a name="module_postgres"></a> [postgres](#module\_postgres) | ./postgres | n/a |
+| <a name="module_redis"></a> [redis](#module\_redis) | ./redis | n/a |
 | <a name="module_vnet"></a> [vnet](#module\_vnet) | ./vnet | n/a |
 
 ## Resources
@@ -166,6 +167,7 @@ graph TB
 |------|-------------|------|---------|:--------:|
 | <a name="input_aks_azure_logs"></a> [aks\_azure\_logs](#input\_aks\_azure\_logs) | Enable logging of AKS pods to Azure Log Analytics workspace | `bool` | `false` | no |
 | <a name="input_aks_azure_metrics"></a> [aks\_azure\_metrics](#input\_aks\_azure\_metrics) | Enable metrics export of AKS pods to Azure Monitoring workspace | `bool` | `false` | no |
+| <a name="input_aks_log_retention_days"></a> [aks\_log\_retention\_days](#input\_aks\_log\_retention\_days) | Number of days to retain logs in the Log Analytics workspace (30-730) | `number` | `30` | no |
 | <a name="input_cidr_vnet"></a> [cidr\_vnet](#input\_cidr\_vnet) | CIDR to use for the VNET | `string` | n/a | yes |
 | <a name="input_cpu_node_pool_vm_size"></a> [cpu\_node\_pool\_vm\_size](#input\_cpu\_node\_pool\_vm\_size) | VM size to use for CPU node pool | `string` | `"Standard_D16as_v6"` | no |
 | <a name="input_db_geo_redundant_backup_enabled"></a> [db\_geo\_redundant\_backup\_enabled](#input\_db\_geo\_redundant\_backup\_enabled) | Is Geo-Redundant backup enabled on the PostgreSQL Flexible Server. | `bool` | `true` | no |
@@ -181,6 +183,10 @@ graph TB
 | <a name="input_hostname"></a> [hostname](#input\_hostname) | Hostname of the deployment in the format 'https://<url>' | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Region of the deployment | `string` | n/a | yes |
 | <a name="input_postgres_version"></a> [postgres\_version](#input\_postgres\_version) | The version of PostgreSQL to use. | `string` | `"17"` | no |
+| <a name="input_redis_clustering_policy"></a> [redis\_clustering\_policy](#input\_redis\_clustering\_policy) | Clustering policy. Possible values are EnterpriseCluster, OSSCluster and NoCluster. | `string` | `"OSSCluster"` | no |
+| <a name="input_redis_eviction_policy"></a> [redis\_eviction\_policy](#input\_redis\_eviction\_policy) | Specifies the Redis eviction policy. Possible values are AllKeysLFU, AllKeysLRU, AllKeysRandom, VolatileLRU, VolatileLFU, VolatileTTL, VolatileRandom and NoEviction. | `string` | `"VolatileLRU"` | no |
+| <a name="input_redis_high_availability_enabled"></a> [redis\_high\_availability\_enabled](#input\_redis\_high\_availability\_enabled) | Whether to enable high availability for the Managed Redis instance. | `bool` | `true` | no |
+| <a name="input_redis_sku_name"></a> [redis\_sku\_name](#input\_redis\_sku\_name) | The SKU for the Managed Redis instance. Examples: Balanced\_B3, MemoryOptimized\_M10, ComputeOptimized\_X3, FlashOptimized\_A250. | `string` | `"Balanced_B3"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to created resources | `map(string)` | `{}` | no |
 
 ## Outputs
@@ -190,5 +196,6 @@ graph TB
 | <a name="output_aks_cluster_name"></a> [aks\_cluster\_name](#output\_aks\_cluster\_name) | n/a |
 | <a name="output_oidc_auth_config"></a> [oidc\_auth\_config](#output\_oidc\_auth\_config) | OIDC authentication configuration for Azure AD |
 | <a name="output_postgres_connection_string"></a> [postgres\_connection\_string](#output\_postgres\_connection\_string) | PostgreSQL connection string for the adaptive database |
+| <a name="output_redis_connection_string"></a> [redis\_connection\_string](#output\_redis\_connection\_string) | Redis connection string for the cache |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | n/a |
 <!-- END_TF_DOCS -->
