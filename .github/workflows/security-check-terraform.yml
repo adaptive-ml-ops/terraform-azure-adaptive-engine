@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: tfsec checks
         uses: aquasecurity/tfsec-sarif-action@v0.1.4
