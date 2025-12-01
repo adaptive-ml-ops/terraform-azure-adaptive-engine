@@ -164,6 +164,8 @@ graph TB
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_aks_azure_logs"></a> [aks\_azure\_logs](#input\_aks\_azure\_logs) | Enable logging of AKS pods to Azure Log Analytics workspace | `bool` | `false` | no |
+| <a name="input_aks_azure_metrics"></a> [aks\_azure\_metrics](#input\_aks\_azure\_metrics) | Enable metrics export of AKS pods to Azure Monitoring workspace | `bool` | `false` | no |
 | <a name="input_cidr_vnet"></a> [cidr\_vnet](#input\_cidr\_vnet) | CIDR to use for the VNET | `string` | n/a | yes |
 | <a name="input_cpu_node_pool_vm_size"></a> [cpu\_node\_pool\_vm\_size](#input\_cpu\_node\_pool\_vm\_size) | VM size to use for CPU node pool | `string` | `"Standard_D16as_v6"` | no |
 | <a name="input_db_geo_redundant_backup_enabled"></a> [db\_geo\_redundant\_backup\_enabled](#input\_db\_geo\_redundant\_backup\_enabled) | Is Geo-Redundant backup enabled on the PostgreSQL Flexible Server. | `bool` | `true` | no |

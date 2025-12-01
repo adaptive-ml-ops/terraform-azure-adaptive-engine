@@ -4,6 +4,12 @@ output "postgres_connection_string" {
   sensitive   = true
 }
 
+output "redis_connection_string" {
+  description = "Redis connection string for the cache"
+  value       = module.redis.connection_string
+  sensitive   = true
+}
+
 output "oidc_auth_config" {
   description = "OIDC authentication configuration for Azure AD"
   value = yamlencode({
